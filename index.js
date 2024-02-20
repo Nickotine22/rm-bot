@@ -1,14 +1,23 @@
-import {Telegraf} from 'telegraf'
-//const { Telegraf } = require('telegraf')
-const { message } = require('telegraf/filters')
+const TelegramApi = require('node-telegram-bot-api')
 
-const bot = new Telegraf('6979213681:AAEGTJm73Mb4c0Ddq00XZuRxbjgvjvi2_yg')
-bot.start((ctx) => ctx.reply('Welcome'))
-bot.help((ctx) => ctx.reply('Send me a sticker'))
-bot.on(message('sticker'), (ctx) => ctx.reply('👍'))
-bot.hears('hi', (ctx) => ctx.reply('Hey there'))
-bot.launch()
+const token = '6979213681:AAEGTJm73Mb4c0Ddq00XZuRxbjgvjvi2_yg'
 
-// Enable graceful stop
-process.once('SIGINT', () => bot.stop('SIGINT'))
-process.once('SIGTERM', () => bot.stop('SIGTERM'))
+const bot = new TelegramApi(token, {polling: true})
+
+bot.on('message', msg =>{
+    const text = msg.text;
+    const chatId = msg.chat.id
+
+    bot.setMyCommands([
+        {command: '/start', description: 'Начальное приветствие'},
+        {command: '/info', description: 'тест'}
+    ])
+
+
+    if (text === '/start') {
+        bot.sendMessage(chatId, 'Привет')
+    }
+    if (text === '/info'){
+        bot.sendMessage(chatId, 'Ты написал')
+    }
+})
