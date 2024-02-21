@@ -9,15 +9,31 @@ bot.on('message', msg =>{
     const chatId = msg.chat.id
 
     bot.setMyCommands([
-        {command: '/start', description: 'Начальное приветствие'},
-        {command: '/info', description: 'тест'}
+        {command: '/start', description: 'Откат-накат'}
     ])
 
-
-    if (text === '/start') {
-        bot.sendMessage(chatId, 'Привет')
-    }
-    if (text === '/info'){
-        bot.sendMessage(chatId, 'Ты написал')
-    }
+    bot.sendMessage(chatId, 'Выберите опции:', {
+        reply_markup: {
+            inline_keyboard: [
+                [
+                    { text: 'Кролики', callback_data: '1' }
+                ],
+                [
+                    { text: '🐺 Волчья стая', callback_data: '2' }
+                ],
+                [
+                    { text: 'Колибри', callback_data: '3' }
+                ],
+                [
+                    { text: 'Корги', callback_data: '4' }
+                ],
+                [
+                    { text: 'Панды', callback_data: '5' }
+                ],
+                [
+                    { text: '🦊 Лисы', callback_data: '6' },
+                ]
+            ]
+        }
+    });
 })
